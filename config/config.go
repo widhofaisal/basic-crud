@@ -56,5 +56,6 @@ func InitDB() {
 func InitialMigration() {
 	DB.AutoMigrate(
 		&model.ToDoList{},
+		&model.Book{},
 	)
 }

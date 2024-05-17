@@ -44,9 +44,10 @@ func Get_all_list(c echo.Context) error {
 func Add_list(c echo.Context) error {
 	// DEFINE: struct only for binding
 	type bindJson struct {
-		Title    string `json:"title"`
-		Status   string `json:"status"`
-		Priority string `json:"priority"`
+		Title       string `json:"title"`
+		Description string `json:"description"`
+		Status      string `json:"status"`
+		Priority    string `json:"priority"`
 	}
 
 	// BIND: reuqest body json
