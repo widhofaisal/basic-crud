@@ -35,7 +35,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-          script: |
             echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker pull widhofaisal/basic-crud:latest
             echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker stop container_basic_crud
             echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker rm -v container_basic_crud
