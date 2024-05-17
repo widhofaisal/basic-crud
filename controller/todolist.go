@@ -14,7 +14,7 @@ import (
 func Hello_world(c echo.Context) error {
 	return c.JSON(http.StatusOK, model.ResponseError{
 		StatusCode:   200,
-		ErrorMessage: "Hello world!!! All right reserved.",
+		ErrorMessage: "Hello world!!! All right reserved. TEST_NO: 001",
 	})
 }
 
