@@ -33,11 +33,10 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            docker pull widhofaisal/basic-crud:latest
-            docker stop container_basic_crud
-            docker rm -v container_basic_crud
-            docker run -d -v receipts:/app/assets -it -p 9000:9000 --name container_basic_crud  --link container_mysql:mysql -e DB_HOST=mysql -e DB_PORT=3306 -e DB_USER=developerbackend -e DB_PASSWORD=9JpJTk4nRMc2EPNOjGgZWNKOHDdaeT -e DB_NAME=simakpro_db widhofaisal/basic-crud:latest
-            
+          script: |
+            echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker pull widhofaisal/basic-crud:latest
+            echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker stop container_basic_crud
+            echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker rm -v container_basic_crud
+            echo ${{ secrets.BURNIAT_SSH_PASSWORD }} | sudo -S docker run -d -v assets:/app/assets -it -p 8000:8000 --name container_basic_crud  --link container_mysql:mysql -e DB_HOST=mysql -e DB_PORT=3306 -e DB_USER=developerbackend -e DB_PASSWORD=9JpJTk4nRMc2EPNOjGgZWNKOHDdaeT -e DB_NAME=simakpro_db widhofaisal/basic-crud:latest
