@@ -30,14 +30,6 @@ type Config struct {
 }
 
 func InitDB() {
-	// config := Config{
-	// 	DB_Username: "developerbackend",
-	// 	DB_Password: "9JpJTk4nRMc2EPNOjGgZWNKOHDdaeT",
-	// 	DB_Port:     "3306",
-	// 	DB_Host:     "mysql",
-	// 	DB_Name:     "simakpro_db",
-	// }
-
 	config := Config{
 		DB_Username: os.Getenv("DB_USERNAME"),
 		DB_Password: os.Getenv("DB_PASSWORD"),

@@ -17,7 +17,7 @@ func New() *echo.Echo {
 	e.Use(middleware.MiddlewareLogging)
 
 	eApi := e.Group("/todolists/api/v1")
-	eApi.GET("", controller.Hello_world)
+	eApi.GET("/hello", controller.Hello_world)
 	eApi.GET("", controller.Get_all_list)
 	eApi.POST("", controller.Add_list)
 	eApi.PUT("/:id", controller.Update_list_by_id)
