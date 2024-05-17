@@ -1,0 +1,43 @@
+name: CI/CD to Docker Hub and Deploy
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t basic-crud:latest .
+
+      - name: Tag Docker image
+        run: docker tag basic-crud:latest widhofaisal/basic-crud:latest
+
+      - name: Push Docker image
+        run: docker push widhofaisal/basic-crud:latest
+
+      - name: Deploy Using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker pull widhofaisal/basic-crud:latest
+            docker stop container_basic_crud
+            docker rm -v container_basic_crud
+            docker run -d -v receipts:/app/assets -it -p 8000:8000 --name container_basic_crud  --link container_mysql:mysql -e DB_HOST=mysql -e DB_PORT=3306 -e DB_USER=developerbackend -e DB_PASSWORD=9JpJTk4nRMc2EPNOjGgZWNKOHDdaeT -e DB_NAME=simakpro_db widhofaisal/basic-crud:latest
+            
