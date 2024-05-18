@@ -27,6 +27,14 @@ jobs:
       - name: Push Docker image
         run: docker push widhofaisal/basic-crud:latest
 
+      - name: Create .env file
+        run: |
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "PORT=3306" >> .env
+          echo "HOST=mysql" >> .env
+          echo "DB_DB=${{ secrets.DB_DB }}" >> .env
+
       - name: Deploy Using ssh
         uses: appleboy/ssh-action@master
         with:
